@@ -80,7 +80,7 @@ author:
       icon: "fab fa-fw fa-dev"
       url: "https://dev.to/just_insane"
     - label: "LinkedIn"
-      #icon: "fab fa-fw fa-linkedin"
+      icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/justin-gauthier-671748112/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
