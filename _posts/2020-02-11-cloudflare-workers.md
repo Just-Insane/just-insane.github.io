@@ -14,11 +14,11 @@ I have recently had the need to redirect a few subdomains to another domain, due
 
 I wanted a solution that would not require running another web server, so I started looking into a few different options.
 
-1. Cloudflare Page Rules
+## Cloudflare Page Rules
 
 While Page Rules do want I want, they were either not flexible enough (could only target a single subdomain), and would be relatively expensive for the number I would need.
 
-2. Cloudflare Workers
+## Cloudflare Workers
 
 Cloudflare Workers are pretty cool. They allow you to run JS code at the Cloudflare edge. They are basically functions-as-a-service, which are super fast and customizable.
   
@@ -47,3 +47,5 @@ Basically, it handles requests by sending a 302 Temporary Redirect to my current
 Additionally, the function is super fast. It seems significantly faster than if I were to run a webserver to handle the redirect myself.
 
 It is also using the [routes](https://developers.cloudflare.com/workers/about/routes/) function. You still have to define a DNS name for the URLs you want to redirect, and I currently just CNAME them to the workers.dev hostname of the worker.
+
+This is just a start of what workers/functions are able to do, and I am excited to see where else I can use them to make my life easier.
