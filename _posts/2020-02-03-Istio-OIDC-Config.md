@@ -291,22 +291,6 @@ spec:
       targetPort: 4180
   selector:
     k8s-app: oauth2-proxy
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    k8s-app: oauth2-proxy
-  name: oauthproxy-service
-  namespace: default
-spec:
-  ports:
-    - name: http
-      port: 4180
-      protocol: TCP
-      targetPort: 4180
-  selector:
-    k8s-app: oauth2-proxy
 ```
 
 The above config is what I am using to deploy OAuth2_Proxy, some of the configuration is probably unnecessary. Some important parts are the URLs for your OIDC Provider (Keycloak in my case), and the cookie domain, if you have a domain and subdomains that are being used.

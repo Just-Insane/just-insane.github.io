@@ -40,11 +40,8 @@ As more tasks are moved to the cloud, it becomes even easier to move these tasks
 
 ## Reactive vs Proactive Automation
 
-In the previous examples we looked at reactive automations which were done when something happens. Now, let's take a look at how we could change those automations from being reactive to being
-proactive.
+In the previous examples we looked at reactive automations which were done when something happens. Now, let's take a look at how we could change those automations from being reactive to being proactive.
 
-Most modern logging and monitoring solutions have the ability to run automations (scripts) when they detect an issue **is** occuring. If you aren't using a monitoring solution that can run automations, or isn't
-monitoring your whole environment, you may want to look at upgrading that first, as observability is critical to making informed decisions and keeping a well-running ship.
+Most modern logging and monitoring solutions have the ability to run automations (scripts) when they detect an issue **is** occuring. If you aren't using a monitoring solution that can run automations, or isn't monitoring your whole environment, you may want to look at upgrading that first, as observability is critical to making informed decisions and keeping a well-running ship.
 
-Notice how in the previous paragraph I mention that automations can be run when the issue is occuring? That is very important. Your systems should be able to take a set action (or actions) when they detect
-an anomily. Of couse, this should still be logged for human review (automatic creation of service tickets usually works best), and if issues continue, an alert should be fired.
+Notice how in the previous paragraph I mention that automations are run when an issue is occuring? That is very important. Your systems should be able to take a set action (or actions) when they detect an anomily. Of couse, this should still be logged for human review (automatic creation of service tickets usually works best), and if issues continue, an alert should be fired. The main benefit of this is that issues can be resolved before human interaction is required (for example, a VM out of drive space leading to automatic addition of space and drive partitioning). This frees up your team to work on more important tasks, and investigate instances where drives are filling up consistently. Note that it is important for these automated fixes to be [idempotent](https://stackoverflow.com/a/1077421).
