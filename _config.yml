@@ -91,15 +91,9 @@ author:
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
       url: "https://gitlab.com/just.insane"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/justinsane454"
     - label: "Email"
       icon: "fas fa-fw fa-envelope"
       url: "mailto:justin@homelab.blog"
-    #- label: "Instagram"
-    #  icon: "fab fa-fw fa-instagram"
-    #  url: "https://instagram.com/"
 
 footer:
   links:
@@ -112,9 +106,6 @@ footer:
     - label: "DEV.to"
       icon: "fab fa-fw fa-dev"
       url: "https://dev.to/just_insane"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/justinsane454"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/Just-Insane"
@@ -124,9 +115,6 @@ footer:
     - label: "Email"
       icon: "fas fa-fw fa-envelope"
       url: "mailto:justin@homelab.blog"
-    #- label: "Instagram"
-    #  icon: "fab fa-fw fa-instagram"
-    #  url: "https://instagram.com/"
 
 defaults:
   # _posts
