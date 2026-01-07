@@ -14,12 +14,11 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Homelab.blog
-email: jax@homelab.blog
+email: evie@homelab.blog
 description: >- # this means to ignore newlines until "baseurl:"
   A blog about my Homelab experiences.
 baseurl: /
 url: https://homelab.blog
-twitter_username: justinsane454
 github_username: Just-Insane
 minimal_mistakes_skin: dark #neon
 search: true
@@ -66,55 +65,34 @@ plugins:
   - jekyll-include-cache
 
 author:
-  name   : "Jax Gauthier"
-  avatar : "/assets/images/bio-photo.jpg"
-  bio    : "Doing awesome things, awesomely"
+  name: "Evie Gauthier"
+  avatar: "/assets/images/bio-photo.jpg"
+  bio: "Doing awesome things, awesomely"
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
       url: "https://homelab.blog"
-    - label: "Medium"
-      icon: "fab fa-fw fa-medium"
-      url: "https://medium.com/@just_insane"
-    - label: "DEV.to"
-      icon: "fab fa-fw fa-dev"
-      url: "https://dev.to/just_insane"
-    - label: "Keybase"
-      icon: "fab fa-keybase"
-      url: "https://keybase.io/just_insane"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
-      url: "https://www.linkedin.com/in/justin-gauthier-671748112/"
+      url: "https://www.linkedin.com/in/evie-gauthier-671784112/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/Just-Insane"
-    - label: "GitLab"
-      icon: "fab fa-fw fa-gitlab"
-      url: "https://gitlab.com/just.insane"
     - label: "Email"
       icon: "fas fa-fw fa-envelope"
-      url: "mailto:jax@homelab.blog"
+      url: "mailto:evie@homelab.blog"
 
 footer:
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
       url: "https://homelab.blog"
-    - label: "Medium"
-      icon: "fab fa-fw fa-medium"
-      url: "https://medium.com/@just_insane"
-    - label: "DEV.to"
-      icon: "fab fa-fw fa-dev"
-      url: "https://dev.to/just_insane"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/Just-Insane"
-    - label: "GitLab"
-      icon: "fab fa-fw fa-gitlab"
-      url: "https://gitlab.com/just.insane"
     - label: "Email"
       icon: "fas fa-fw fa-envelope"
-      url: "mailto:jax@homelab.blog"
+      url: "mailto:evie@homelab.blog"
 
 defaults:
   # _posts
