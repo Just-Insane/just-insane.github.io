@@ -57,6 +57,17 @@ The main components are:
 
 There is also work involving Graphiti for relationships and changes over time, which I will cover separately.
 
+<img src="https://raw.githubusercontent.com/Just-Insane/just-insane.github.io/407747150da1d51d6b5b0b0fe713fad28dd798e0/assets/images/ea-overview.svg" width="480" alt="Authorized sources feed PCP's D1 and R2 evidence, then AI Search and evidence checks, then dot and executive-assistant follow-through. Authorized updates reach OmniFocus and Obsidian, with destination verification feeding back into follow-through. Graphiti is an optional derived branch. Source freshness and captured-record currentness are checked separately." style="max-width: 480px; width: 100%; height: auto;">
+
+*The intended responsibilities of each part of the setup. This is an architectural overview; it does not mean that every path is working reliably end to end.*
+
+In this post:
+
+- [Capture and retrieval](#personal-context-platform)
+- [Interpretation and follow-through](#executive-assistant)
+- [Tasks, notes and delivery checks](#tasks-and-notes)
+- [Permissions and corrections](#some-important-details)
+
 ### Personal Context Platform
 
 PCP handles the source information. It retains the captured content along with enough information to identify where it came from and which revision it represents, using [D1](https://developers.cloudflare.com/d1/) and [R2](https://developers.cloudflare.com/r2/) for storage.
@@ -90,5 +101,11 @@ These are some of the areas still being worked on. Parts of capture, retrieval, 
 ## Next steps
 
 In the next part, we will look more closely at PCP and how the source information is captured and retrieved. Later posts will cover follow-through, permissions, and getting useful updates into tasks and notes.
+
+Coming next:
+
+- PCP: capture and retrieval
+- Executive-assistant follow-through and permissions
+- Tasks, notes and delivery checks
 
 For now, this is an overview of what I am building. There is still quite a bit to get working reliably, but the intended result is fairly straightforward: being able to ask for help without first having to gather and explain all of the context myself.
