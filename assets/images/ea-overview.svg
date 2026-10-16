@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="1330" viewBox="0 0 480 1330" role="img" aria-labelledby="title desc">
+  <title id="title">Personal executive assistant: intended responsibilities</title>
+  <desc id="desc">Authorized sources feed PCP, which retains captured records in D1 and content in R2. Source freshness is checked separately from the currentness of captured records. AI Search finds candidates, which are checked against exact retained evidence and newer captured revisions. dot interprets the evidence and an executive-assistant service tracks follow-through. Authorized updates go to OmniFocus tasks and Obsidian notes. Verification at the destination feeds back into follow-through. Graphiti is an optional derived relationship view, separate from the main path. This overview describes intended responsibilities, not verified end-to-end runtime behavior.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#52677d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  </defs>
+  <style>
+    text { font-family: Arial, Helvetica, sans-serif; fill: #203449; }
+    .heading { font-size: 23px; font-weight: 700; }
+    .label { font-size: 21px; font-weight: 700; }
+    .body { font-size: 19px; }
+    .small { font-size: 17px; }
+    .muted { fill: #4d6073; }
+    .box { fill: #ffffff; stroke: #acb9c7; stroke-width: 1.5; }
+    .line { fill: none; stroke: #52677d; stroke-width: 2; marker-end: url(#arrow); }
+  </style>
+  <rect width="480" height="1330" rx="18" fill="#f5f7fa"/>
+  <text x="32" y="44" class="heading">Personal executive assistant</text>
+  <text x="32" y="74" class="body muted">Overview of intended responsibilities</text>
+
+  <rect x="48" y="108" width="400" height="130" rx="12" class="box"/>
+  <text x="68" y="141" class="label">Authorized sources</text>
+  <text x="68" y="173" class="body">Email, calendars and other context</text>
+  <text x="68" y="207" class="body muted">Source freshness checked separately</text>
+  <path d="M 248 238 V 268" class="line"/>
+
+  <rect x="48" y="278" width="400" height="132" rx="12" fill="#e9f0f8" stroke="#8ca5c1" stroke-width="1.5"/>
+  <text x="68" y="311" class="label">PCP · captured evidence</text>
+  <text x="68" y="343" class="body">D1 records · R2 content</text>
+  <text x="68" y="377" class="body">Captured revision and provenance</text>
+
+  <path d="M 66 410 V 576 H 248 V 598" class="line"/>
+  <path d="M 66 468 H 98" class="line" stroke-dasharray="5 5"/>
+  <rect x="108" y="434" width="340" height="118" rx="12" fill="#f3f0f7" stroke="#9f91b1" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <text x="128" y="467" class="label">Graphiti · optional</text>
+  <text x="128" y="499" class="body">Derived relationship views</text>
+  <text x="128" y="527" class="small muted">Derived from retained evidence</text>
+
+  <rect x="48" y="608" width="400" height="168" rx="12" class="box"/>
+  <text x="68" y="641" class="label">Retrieval + evidence checks</text>
+  <text x="68" y="673" class="body">Find candidates with AI Search</text>
+  <text x="68" y="707" class="body">Verify exact retained evidence</text>
+  <text x="68" y="741" class="body">Check for newer captured revisions</text>
+  <path d="M 248 776 V 806" class="line"/>
+
+  <rect x="48" y="816" width="400" height="164" rx="12" fill="#e7f1ed" stroke="#8ba99e" stroke-width="1.5"/>
+  <text x="68" y="849" class="label">dot + executive-assistant service</text>
+  <text x="68" y="881" class="body">Interpret · prepare · ask when needed</text>
+  <text x="68" y="915" class="body">Track review and follow-through</text>
+  <text x="68" y="949" class="body">Act within granted permissions</text>
+  <path d="M 248 980 V 1010" class="line"/>
+
+  <rect x="48" y="1020" width="400" height="100" rx="12" class="box"/>
+  <text x="68" y="1053" class="label">Authorized tasks + notes updates</text>
+  <text x="68" y="1087" class="body">OmniFocus tasks · Obsidian notes</text>
+  <path d="M 248 1120 V 1150" class="line"/>
+
+  <rect x="48" y="1160" width="400" height="96" rx="12" fill="#e7f1ed" stroke="#8ba99e" stroke-width="1.5"/>
+  <text x="68" y="1193" class="label">Verify at the destination</text>
+  <text x="68" y="1227" class="body">Confirm delivery, including notes sync</text>
+  <path d="M 48 1208 H 22 V 898 H 39" class="line"/>
+
+  <text x="32" y="1298" class="small muted">An architectural overview, not end-to-end runtime proof.</text>
+</svg>
