@@ -1,117 +1,94 @@
 ---
-title: 'Building a Personal Executive Assistant: Part 1 — Why I''m Building My Own'
+title: 'Building a Personal Executive Assistant - Part 1'
 published: false
 categories:
   - 'Blog'
 ---
 
-*A look at the gaps between notes, tasks, calendars and AI assistants, and the system I'm building to help keep track of what actually needs doing.*
+*An overview of my personal executive-assistant setup, why I am building it, and the problems I want it to solve.*
 
-I have been building a personal executive-assistant setup, which is a fairly elaborate way of trying to solve a familiar problem: keeping track of things spread across too many places.
+I have been working on a personal executive assistant, which brings together information from my email, calendars, tasks, and notes. I wanted a setup that could use this information to help prepare for things and follow up on outstanding work, without needing me to explain the same context every time.
 
-An email contains a request. A meeting changes the plan. A note records a decision. A task still has the old deadline. Individually, each application might be working exactly as intended. I still have to notice the connections and keep everything consistent.
+In this post, we are going to look at why I am building this, the applications and services involved, and some of the problems with getting them to work together. There are already working parts of the setup, however there is still work to do before I can rely on the whole thing day to day.
 
-That is the part I want help with.
+## Why build an assistant?
 
-In this series, we will look at the setup, the choices behind it, and the problems that turn up when an assistant needs to remain useful beyond a single conversation. This first post covers what I am trying to achieve and how the main pieces fit together.
+If you use a task manager and a notes application, you probably already have somewhere to put most of this information. I use OmniFocus for tasks, and Obsidian for notes. These are useful applications, and I want to keep using them.
 
-## The work between the applications
+The problem is keeping the information in them up to date with everything happening elsewhere. An email might change a deadline, or a conversation might contain a decision which makes an existing task unnecessary. I still need to notice that, find the task, and update it. Having the information available in another application only helps if I remember to look there.
 
-Consider a simple example: preparing for a meeting.
+For example, if I am preparing for a meeting, I might need the calendar entry, an email thread, an attached document, and some previous notes. If the meeting moves or the document changes, the preparation needs to change as well. Ideally, the assistant would bring the relevant information together and work out what still needs doing, then prepare what it can or ask me for the decision it needs.
 
-The calendar tells me when it is happening. An email thread explains what we are discussing. An attachment contains the latest proposal. My notes record an earlier decision, and my task manager has the preparation work.
+This also needs to be selective. Sending me a notification for every email would just give me more things to review. I want help with the work involved in keeping track of things, including doing useful preparation before I ask for it.
 
-Then the meeting moves, the proposal changes, and one of the preparation tasks becomes unnecessary.
+## Existing options
 
-A useful assistant should be able to bring together the current information, identify what changed, and prepare the next step. If something needs my decision, it should ask a specific question. If I have already authorized a routine action, it should carry that through and check the result.
+There are a few different ways to approach this, and I am using parts of them in this setup.
 
-It should also recognize when there is nothing useful to do. Turning every incoming message into another notification would give me another inbox to manage.
+### Task managers and notes
 
-The goal is to reduce how much of this coordination I have to keep in my head.
+A task manager works well once something has been turned into a task. Notes are useful for recording decisions and keeping the supporting information. The part I want help with is getting from a conversation to an appropriate task, and keeping that task connected to later changes.
 
-## Why the existing tools aren't enough for this setup
+I could do this with more manual reviews and links between notes, but that still leaves me maintaining all of those connections. The assistant needs to be able to read the relevant material and prepare the updates, while preserving anything I have written myself.
 
-I still want to use a calendar, a task manager and a notes application. They each have a useful job. The gap is in connecting them reliably enough that I can depend on the result.
+### Automation
 
-### Tasks and notes need maintenance
+Automation is useful when you know what should happen for a particular input. However, an incoming message might be a new request, a correction to an earlier one, or something that has already been dealt with. Those need different handling.
 
-A task manager gives me somewhere to put work once I have identified it. Notes give me somewhere to retain context. In my workflow, I still need to turn a conversation into a task, connect it to the right information, and notice when later information changes it.
+There is also the issue of what happens when an operation fails halfway through. If a task is created but the response never arrives, retrying the request could create another task. Before trying again, the system needs to check whether the original action succeeded. If it cannot determine that, it needs to retain that uncertainty.
 
-Adding more fields or another review checklist can help, but it also creates more maintenance. I want the assistant to do some of that preparation while leaving me in control of decisions.
+### AI assistants
 
-### Automation needs a clear meaning for “done”
+An AI assistant can help interpret the information, but it needs access to the right information in the first place. An email preview might omit the important part of a message, and the answer might be in an attachment or an older conversation which was never retrieved.
 
-A rule such as “when this happens, create that” is useful when the input and action are predictable.
+Additionally, information changes. A search result can be relevant to a question while containing an outdated answer. For my setup, I need to know where the information came from, which version was used, and whether anything important is missing.
 
-The awkward cases are less tidy. Is this a new request or a correction? Has it already been handled elsewhere? Does a missing response mean the action failed, or did the response get lost after the action succeeded?
+These are the gaps I am trying to address across my applications. The existing tools provide much of what I need; building the integration gives me control over how the context and follow-up work move between them.
 
-If a task was created but the acknowledgement never arrived, blindly trying again can create a duplicate. The system needs a way to check what happened and leave the outcome uncertain when it cannot prove it.
+## The setup
 
-### An AI answer needs dependable context
+The main components are:
 
-An assistant can produce a convincing summary from incomplete information. That makes the quality of the input particularly important.
+1. Personal Context Platform (PCP), which captures and retains information from authorized sources
+2. Cloudflare D1 and R2, which store the captured records and content
+3. AI Search, which helps retrieve relevant information
+4. dot and the executive-assistant service, which handle interpretation and follow-through
+5. OmniFocus and Obsidian, where I continue to use my tasks and notes
 
-Finding an old message does not establish that it is still current. Having the email body does not mean the attachment was read. Searching a recent window does not establish that the earlier decision was included.
+There is also work involving Graphiti for relationships and changes over time, which I will cover separately.
 
-For this setup, I need answers grounded in identifiable source material, with gaps made explicit. I also need corrections to survive beyond the conversation where I made them.
+### Personal Context Platform
 
-These are requirements for my workflow, rather than a claim that every existing product lacks them. Building my own integration lets me define those requirements across the applications I actually use. It also leaves me responsible for making the integration work.
+PCP handles the source information. It retains the captured content along with enough information to identify where it came from and which revision it represents, using [D1](https://developers.cloudflare.com/d1/) and [R2](https://developers.cloudflare.com/r2/) for storage.
 
-## How the pieces fit together
+This is important when something changes. The assistant needs to be able to refer back to the information it used, while checking whether a newer version is available from the source. Keeping a copy does not automatically tell us that it is still current.
 
-The design separates collecting information, deciding what it means, and carrying out an action. Some of these paths already exist; others are still being repaired or qualified.
+[AI Search](https://developers.cloudflare.com/ai-search/) is used to help find relevant material. The retained source records remain available independently of the search index, so rebuilding the index should not mean losing the originals.
 
-### Personal Context Platform: retaining the evidence
+[Graphiti](https://github.com/getzep/graphiti) has also been part of this work, for derived views of relationships and how they change over time. It remains optional, and its wider role is still being evaluated. The basic retrieval and follow-up paths need to work independently of it.
 
-The Personal Context Platform, or PCP, captures information from authorized sources. Its job is to retain source material and the information needed to identify its origin and revision.
+### Executive assistant
 
-[Cloudflare D1](https://developers.cloudflare.com/d1/) and [R2](https://developers.cloudflare.com/r2/) provide the database and object-storage foundations for that captured evidence. Within this system, those retained records are the reference point for what was captured. The original provider still determines what is current there, so freshness needs to be checked rather than assumed.
+The conversational assistant, dot, handles interpreting my requests and deciding what is useful to do with the available information. The executive-assistant service stores its internal follow-through state in D1, including what has been reviewed and what is still waiting for something to happen.
 
-[AI Search](https://developers.cloudflare.com/ai-search/) helps find relevant material. I treat search results as a route back to evidence, with the original records available for checking. An index should be replaceable without losing the underlying information.
+One thing to note is that receiving an event, reviewing it, and completing an action are separate steps. If the system has accepted a request, we still need to know whether the assistant reviewed it and whether any resulting action actually happened. Keeping this state allows work to continue after a restart without treating everything as a new request.
 
-[Graphiti](https://github.com/getzep/graphiti) has also been part of this work, providing derived views of relationships and how they change over time. It remains optional, and its wider role is still being evaluated. Basic questions and follow-through need to work without a knowledge graph becoming another prerequisite.
+### Tasks and notes
 
-### The assistant: judgment and follow-through
+OmniFocus continues to hold the tasks I need to do. Obsidian, together with my Knowledge Platform, holds the notes I read and edit. The assistant's internal work stays separate, so its processing steps do not all end up in my task list.
 
-The conversational assistant, dot, owns the judgment layer: interpreting my request, weighing the available context, and deciding whether there is something useful to prepare or raise with me.
+When an authorized action changes something in an application, the result needs to be checked there. For notes, this includes checking that the update has reached the place where I read it. A note can be generated and published successfully while synchronization is still pending.
 
-The executive-assistant service keeps durable internal follow-through state in D1. That includes what has been reviewed, what remains pending, and what outcome has actually been established. This gives the workflow somewhere to continue from after a conversation ends or a process restarts.
+## Some important details
 
-There is an important distinction between receiving an event, reviewing it, preparing an action, and completing that action. Each step needs its own evidence. A successful handoff only proves the handoff.
+Permissions need to be specific enough that routine preparation can happen without repeatedly asking me to approve the same read. Sending a message or changing an application needs its own authorization. A request found inside an email cannot grant that permission.
 
-### Human tasks, notes and actual changes
+Corrections also need to carry through the system. If I change a plan, the next conversation should use the correction, and an older worker should not continue acting on the previous version. When multiple agents are involved, there needs to be one responsible writer for an action to avoid duplicate or conflicting updates.
 
-OmniFocus remains the home for tasks I need to do. Obsidian and my Knowledge Platform remain the home for human-readable notes. Internal assistant bookkeeping has a separate purpose; every intermediate step does not need to become another task for me.
+These are some of the areas still being worked on. Parts of capture, retrieval, review, and delivery exist and have been exercised individually. End-to-end reliability is still being repaired and tested, with some work remaining in planning. Missing history and attachments, correction handling, and verification of the final result are all part of that work.
 
-Changes to a calendar, task or other application go through the authorized provider route. The design calls for one responsible writer for each action, followed by verification at the destination.
+## Next steps
 
-The same distinction applies to notes. Generating a note, publishing it, and having it arrive where I read it are separate outcomes. A successful publication does not establish that synchronization finished.
+In the next part, we will look more closely at PCP and how the source information is captured and retrieved. Later posts will cover follow-through, permissions, and getting useful updates into tasks and notes.
 
-## Permissions and corrections are part of the design
-
-An assistant that repeatedly asks to read information I have already authorized would add friction. An assistant that treats read access as permission to send messages or change things would create a much bigger problem.
-
-I want routine preparation to happen within a clear scope, with approval where it is actually needed. Reading a request in an email must never turn that email into authority to act on my behalf.
-
-Corrections need similar care. If I say that a plan has changed, an older search result or restarted worker should not silently bring the old plan back. If several agents are helping, they need clear ownership so that two helpful attempts do not become two conflicting changes.
-
-These requirements are less visible than the chat interface, but they determine whether I can trust it.
-
-## Where things stand
-
-This is a work in progress. Parts of the capture, retrieval, review and delivery pipelines exist, and individual paths have been exercised. That does not establish that the entire setup works reliably in everyday use.
-
-Current work includes closing gaps in source history and attachments, carrying corrections through the workflow, distinguishing attempted actions from verified outcomes, and checking that updates reach their intended destination. Some of that work is implemented; some remains in repair or planning. The architecture above describes the intended responsibilities, not a claim that every path has passed end-to-end testing.
-
-The useful test is an ordinary question or commitment followed through correctly, including when information changes or something fails halfway through.
-
-## What's next
-
-The next posts will go deeper into:
-
-- Capturing context, retaining originals, and handling freshness and corrections
-- Retrieving evidence the assistant can actually use
-- Following a request from review through an authorized, verified outcome
-- Keeping tasks and notes useful without creating more maintenance
-
-There is plenty of infrastructure involved, but the measure of success is fairly simple: less time reconstructing context, fewer loose ends, and useful preparation waiting when I need it.
+For now, this is an overview of what I am building. There is still quite a bit to get working reliably, but the intended result is fairly straightforward: being able to ask for help without first having to gather and explain all of the context myself.
